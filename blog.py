@@ -56,6 +56,22 @@ def logout():
     flash('You were logged out')
     return redirect(url_for('login'))
 
+@app.route('/add',methods=['POST'])
+@login_required
+def add_post():
+    title = request.form['title']
+    post = request.form['post']
+    if not post or not title:
+        flash('All fields are required before submitting your posts')
+        return redirect(url_for('main'))
+    else:
+        g.database = get_db_connection()
+        cur = g.database.execute('INSERT INTO posts VALUES("{0}","{1}")'.format(title,post))
+        g.database.commit()
+        g.database.close()
+        flash('A new post is added')
+        return redirect(url_for('main'))
+
 def get_db_connection():
     return sqlite3.connect(app.config["DATABASE"])
 
