@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
         <title>Neo welcomes Mankind</title>
     </head>
     <body>
         <div class="container">
             {% for message in get_flashed_messages() %}
-            <div class="flash">{{message}}</div>
+                <div class="flash">{{message}}</div>
             {% endfor %}
             {% if error %}
                 <p class="error"><font color="red"><strong>{{error}}</strong></font></p>
