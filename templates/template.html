@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Neo welcomes YOU</title>
+        <title>Neo welcomes Mankind</title>
     </head>
     <body>
-        <div class="">
+        <div class="container">
+            {% for message in get_flashed_messages() %}
+            <div class="flash">{{message}}</div>
+            {% endfor %}
+            {% if error %}
+                <p class="error"><font color="red"><strong>{{error}}</strong></font></p>
+            {% endif %} 
+            <!-- inheritance -->          
             {% block content %}
             {% endblock %}
+            <!-- end inheritance -->
         </div>
     </body>
 </html>
