@@ -44,7 +44,11 @@ def login():
 @app.route('/main')
 @login_required
 def main():
-    return render_template("main.html")
+    g.database = get_db_connection()
+    cur = g.database.execute('SELECT * FROM posts')
+    posts_list = [ dict(title = row[0],post = row[1]) for row in cur.fetchall() ]
+    g.database.close()
+    return render_template("main.html", posts=posts_list)
 
 @app.route('/logout')
 def logout():
